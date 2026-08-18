@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
 import Link from "next/link";
+import QuickMealTile from "@/components/QuickMealTile";
 
 export default async function Dashboard() {
   const supabase = await createClient();
@@ -90,19 +91,13 @@ export default async function Dashboard() {
       <section className="mb-4">
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-medium">Snel toevoegen</h2>
-          <Link href="/log/photo" className="text-sm text-lime-400 underline">
+          <Link href="/eten" className="text-sm text-lime-400 underline">
             + foto
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {(quickMeals ?? []).map((m) => (
-            <button
-              key={m.id}
-              className="rounded-xl bg-neutral-900 p-3 text-left hover:bg-neutral-800"
-            >
-              <p className="font-medium">{m.name}</p>
-              <p className="text-sm text-neutral-400">{m.calories} kcal</p>
-            </button>
+            <QuickMealTile key={m.id} meal={m} />
           ))}
           {(!quickMeals || quickMeals.length === 0) && (
             <p className="text-neutral-500 text-sm col-span-2">
